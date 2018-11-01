@@ -31,7 +31,9 @@ public class ItemListController extends HttpServlet {
 			currentPage = Integer.parseInt(request.getParameter("currentPage"));
 		}
 		totalCount = this.itemDao.getTotalItemCount();
+		// Math.ceil() 메서드는 소수점 올림.  전체행 나누기 보여줄행으로 마지막페이지를 구함
 		lastPage = (int)Math.ceil((double) totalCount / rowPerPage);
+		// 현재 페이지 번호 나누기 보여줄행 으로 현재화면번호를 구함
 		currentScreen = (int)Math.ceil((double) currentPage / rowPerPage);
 		lastScreen = (int) Math.ceil((double) totalCount / (rowPerPage * pagePerScreen));
 		startScreenPage = (currentScreen - 1) * pagePerScreen;

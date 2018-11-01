@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Item List</title>
+<title>itemList.jsp</title>
 </head>
 
 <body>
@@ -18,7 +18,7 @@
 				<td>${item.no}</td><!--item.getNo()  -->
 				<td>${item.name}</td>
 				<td>${item.price}</td>
-				<td><a href="${pageContext.request.contextPath}/Order">주문</a></td>
+				<td><a href="${pageContext.request.contextPath}/OrderController?itemNo=${item.no}">주문</a></td>
 			</tr>
 		</c:forEach>
 		<tr>

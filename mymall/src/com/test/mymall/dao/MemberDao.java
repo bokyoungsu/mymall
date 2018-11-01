@@ -13,7 +13,9 @@ public class MemberDao {
 	 * 
 	 * @param Member 폼에서 입력한 멤버의 정보(id,pw,level)
 	 */
-	public int insertMember(Member member) {
+	// 입력값으로 id pw level 을 입력받아 member 테이블에 입력하는 메서드
+	// 보통 리턴값을 받아 회원가입이 완료됐는지 실패했는지 판단 
+	public void insertMember(Member member) {
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
 		ResultSet resultSet = null;
@@ -32,32 +34,33 @@ public class MemberDao {
 		finally {
 			DBHelper.close(resultSet,preparedStatement,connection);
 		}
-		return rows;
+	
 	}
 	//id와 pw값을 가지는 member객체를 이용해 로그인체크를 하는 메서드
-	//데이터베이스에서 id와pw일치시 success = true 리턴
-	public boolean login(Member member) {
+	//데이터베이스에서 id와pw일치시  member 객체에 id값과 level값을 대입후 리턴
+	public Member login(Member member) {
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
 		ResultSet resultSet = null;
-		boolean success = false;
 		try {
 			connection = DBHelper.getConnection();
-			preparedStatement = connection.prepareStatement("SELECT id from member where id = ? and pw = ?");
+			preparedStatement = connection.prepareStatement("SELECT id,level FROM member WHERE id = ? AND pw = ?");
 			preparedStatement.setString(1, member.getId());
 			preparedStatement.setString(2, member.getPw());
 			resultSet = preparedStatement.executeQuery();
 			if(resultSet.next()) {
-				success = true;
+				member.setId(resultSet.getString("id")); 
+				member.setLevel(resultSet.getInt("level"));
+			}else {
+				member.setLevel(-1);
 			}
-		}
-		catch(Exception e) {
+		}catch(Exception e) {
 			e.printStackTrace();
 		}
 		finally {
 			DBHelper.close(resultSet,preparedStatement,connection);
 		}		
-		return success;
+		return member;
 	}
 	/**
 	 * 데이터베이스에서 로그인된 회원의 id에 해당하는 회원정보를 가져온다

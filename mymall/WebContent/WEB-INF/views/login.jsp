@@ -6,7 +6,7 @@
 <title>Login Page</title>
 </head>
 <body>
-	<h1>로그인 폼</h1>
+	<h1>login.jsp</h1>
 	<form action="LoginMemberController" method ="post">
 		<table border = "1">
 			<tr>
@@ -18,7 +18,7 @@
 				<td><input type="text" name="pw"></td>
 			</tr>
 			<tr>
-				<td colspan="2" align="right"><input type="submit" value="제출"/></td>
+				<td colspan="2" align="right"><input type="submit" value="로그인"/></td>
 			</tr>
 		</table>
 	</form>

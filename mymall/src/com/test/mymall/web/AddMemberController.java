@@ -32,7 +32,7 @@ public class AddMemberController extends HttpServlet {
 		member.setId(id);
 		member.setPw(pw);
 		member.setLevel(level);
-		int row = this.memberDao.insertMember(member);
+		this.memberDao.insertMember(member);
 		response.sendRedirect(request.getContextPath()+"/IndexController");
 	
 	}

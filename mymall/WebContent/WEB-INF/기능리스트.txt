@@ -13,3 +13,8 @@
 ⓒLogin.doGet-> ⓜlogin.jsp
 5. 로그인 액션
 ⓒLogin.doGet-> ⓜMemberDao.login() -> success:ⓒindex / fail:ⓒlogin 
+
+# 11/1
+6. session 에 로그인 정보 수정 
+7. 주문
+8. 주문목록 (조인)
