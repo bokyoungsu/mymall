@@ -9,12 +9,15 @@
 ⓒAddMember.doPost -> ⓜMemberDao.insertMember() -> ⓒlogin
 
 # 10/25
-4. 로그인 폼
+1. 로그인 폼
 ⓒLogin.doGet-> ⓜlogin.jsp
-5. 로그인 액션
+2. 로그인 액션
 ⓒLogin.doGet-> ⓜMemberDao.login() -> success:ⓒindex / fail:ⓒlogin 
 
-# 11/1
-6. session 에 로그인 정보 수정 
-7. 주문
-8. 주문목록 (조인)
+# 11/1 AM
+1. session 에 로그인 정보 수정 
+2. 주문
+3. 주문목록 (조인)
+
+# 11/1 PM
+1. service 계층 사용: 트랜잭션처리 회원삭제 ->주문삭제

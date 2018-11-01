@@ -10,10 +10,17 @@ import com.test.mymall.commons.DBHelper;
 
 public class MemberItemDao {
 	// Member INNER JOIN item
-	public ArrayList<HashMap<String, Object>> getMemberItemList(int memberNO){
+	public void deleteMemberItem(Connection connection,int no) {
+		try {
+			PreparedStatement preparedStatement = connection.prepareStatement("");
+		}catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+	}
+	public ArrayList<HashMap<String, Object>> getMemberItemList(Connection connection,int memberNO){
 		ArrayList<HashMap<String, Object>> list = new ArrayList<HashMap<String, Object>>();
 		System.out.println("getMemberItemList()");
-		Connection connection = null;
 		PreparedStatement preparedStatement = null;
 		ResultSet resultSet = null;
 		try {

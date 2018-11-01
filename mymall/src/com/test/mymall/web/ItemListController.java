@@ -10,11 +10,13 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.test.mymall.dao.ItemDao;
+import com.test.mymall.service.ItemService;
 import com.test.mymall.vo.Item;
 
 @WebServlet("/ItemListController")
 public class ItemListController extends HttpServlet {
 	ItemDao itemDao;
+	ItemService itemService;
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {	
 		System.out.println("ItemListController.doGet()");
 		int currentPage = 1; //현재 페이지 번호
@@ -30,7 +32,7 @@ public class ItemListController extends HttpServlet {
 		if(request.getParameter("currentPage") != null) {
 			currentPage = Integer.parseInt(request.getParameter("currentPage"));
 		}
-		totalCount = this.itemDao.getTotalItemCount();
+		totalCount = this.itemService.getTotalItemCountService();
 		// Math.ceil() 메서드는 소수점 올림.  전체행 나누기 보여줄행으로 마지막페이지를 구함
 		lastPage = (int)Math.ceil((double) totalCount / rowPerPage);
 		// 현재 페이지 번호 나누기 보여줄행 으로 현재화면번호를 구함
@@ -49,7 +51,8 @@ public class ItemListController extends HttpServlet {
 		else {
 			currentScreenPage = pagePerScreen;
 		}
-		ArrayList<Item> itemList = this.itemDao.selectItemList(currentPage, rowPerPage);
+		
+		ArrayList<Item> itemList = this.itemService.selectItemListService(currentPage, rowPerPage);
 		request.setAttribute("itmeList", itemList);
 		request.setAttribute("lastPage", lastPage);
 		request.setAttribute("currentPage", currentPage);

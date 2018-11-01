@@ -7,7 +7,7 @@
 </head>
 <body>
 	<h2>addMember.jsp</h2>
-	<form action="<%=request.getContextPath()%>/AddMemberController" method="post">
+	<form action="${pageContext.request.contextPath}/AddMemberController" method="post">
 		<table>
 			<tr>
 				<td>id</td>

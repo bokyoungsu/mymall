@@ -47,15 +47,13 @@ public class ItemDao {
 	/**
 	 * 데이터베이스에서 물품의 총 개수를 얻어온다
 	 * 
-	 * @return 물품의 총 개수
+	 * @return 물품의 총 갯수
 	 */
-	public int getTotalItemCount() {
+	public int getTotalItemCount(Connection connection) {
 		int totalCount = 0;
-		Connection connection = null;
 		PreparedStatement preparedStatement = null;
 		ResultSet resultSet = null;
 		try {
-			connection = DBHelper.getConnection();
 			preparedStatement = connection.prepareStatement("SELECT count(*) FROM item");
 			resultSet = preparedStatement.executeQuery();
 			if(resultSet.next()) {

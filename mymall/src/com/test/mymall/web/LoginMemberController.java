@@ -10,12 +10,13 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import com.test.mymall.dao.MemberDao;
+import com.test.mymall.service.MemberService;
 import com.test.mymall.vo.Member;
 
 
 @WebServlet("/LoginMemberController")
 public class LoginMemberController extends HttpServlet {
-	private MemberDao memberDao;
+	private MemberService memberService;
 	//로그인 폼
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		System.out.println("LoginMemberController.doGet()");
@@ -33,18 +34,18 @@ public class LoginMemberController extends HttpServlet {
 		System.out.println("LoginMemberController.doPost()");
 		boolean isLogin = false;
 		Member member = new Member();
-		memberDao = new MemberDao();
 		String id = request.getParameter("id");
 		String pw = request.getParameter("pw");
 		member.setId(id);
 		member.setPw(pw);
 		// 데이터베이스에 id pw 값이 있는지 확인하는 메서드 있으면 member 객체에 id값과 level값을 세팅후 반환 하고 없으면 level값에 -1을 반환
-		member = memberDao.login(member);
+		member = memberService.LoginService(member);
 		// 로그인이성공하면 세션객체에 loginMember 이름으로 id값 등록 
 		if(member.getLevel() != -1) {
 			HttpSession session = request.getSession();
+			session.setAttribute("memberNo", member.getNo());
 			session.setAttribute("loginMember", member.getId());
-			session.setAttribute("MemberLevel", member.getLevel());			
+			session.setAttribute("memberLogin", member.getLevel());			
 			response.sendRedirect(request.getContextPath()+"/IndexController");
 		}
 		else {

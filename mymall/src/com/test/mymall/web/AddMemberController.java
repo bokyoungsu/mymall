@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.test.mymall.dao.MemberDao;
+import com.test.mymall.service.MemberService;
 import com.test.mymall.vo.Member;
 
 @WebServlet("/AddMemberController")
@@ -17,14 +18,13 @@ public class AddMemberController extends HttpServlet {
 	//1. 라우터
 	//2. 모델호출
 	//3. 뷰 렌더링
-	private MemberDao memberDao;
+	private MemberService memberService;
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		System.out.println("AddMemberController.doGet()");
 		request.getRequestDispatcher("WEB-INF/views/addMember.jsp").forward(request, response);
 	}
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		System.out.println("AddMemberController.doPost()");
-		this.memberDao = new MemberDao();
 		Member member = new Member();
 		String id =  request.getParameter("id");
 		String pw = request.getParameter("pw");
@@ -32,9 +32,7 @@ public class AddMemberController extends HttpServlet {
 		member.setId(id);
 		member.setPw(pw);
 		member.setLevel(level);
-		this.memberDao.insertMember(member);
+		this.memberService.insertMemberService(member);
 		response.sendRedirect(request.getContextPath()+"/IndexController");
-	
 	}
-
 }
