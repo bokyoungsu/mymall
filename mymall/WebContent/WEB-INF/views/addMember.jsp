@@ -6,6 +6,7 @@
 <title>addMember Form</title>
 </head>
 <body>
+	<h2>addMember.jsp</h2>
 	<form action="<%=request.getContextPath()%>/AddMemberController" method="post">
 		<table>
 			<tr>
@@ -24,7 +25,7 @@
 				</td>
 			</tr>
 			<tr>
-				<td colspan="2"><input type="submit" value="제출"/></td>
+				<td colspan="2"><input type="submit" value="회원가입"/></td>
 			</tr>
 		</table>
 	</form>

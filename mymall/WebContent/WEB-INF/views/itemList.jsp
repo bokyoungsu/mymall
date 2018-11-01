@@ -24,10 +24,10 @@
 		<tr>
 			<td colspan = "4" align="center">
 				<c:if test="${currentScreen > 1}">
-					<a href="${pageContext.request.contextPath}/ItemListController?currentPage=${(currentScreen - 1) * pagePerScreen}"></a>
+					<a href="${pageContext.request.contextPath}/ItemListController?currentPage=${(currentScreen - 1) * pagePerScreen}"><<</a>
 				</c:if>
 				<c:if test="${currentPage > 1}">
-					<a href="${pageContext.request.contextPath}/ItemListController?currentPage=${currentPage - 1}"></a>
+					<a href="${pageContext.request.contextPath}/ItemListController?currentPage=${currentPage - 1}"><</a>
 				</c:if>
 				<c:forEach var="i" begin="${startScreenPage + 1}" end="${startScreenPage + currentScreenPage}" step="1">
 					<c:if test="${currentPage == i}">

@@ -58,5 +58,4 @@ public class ItemListController extends HttpServlet {
 		request.setAttribute("startScreenPage", startScreenPage);
 		request.getRequestDispatcher("WEB-INF/views/itemList.jsp").forward(request, response);
 	}
-
 }
