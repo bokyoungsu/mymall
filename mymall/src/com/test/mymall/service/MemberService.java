@@ -2,6 +2,8 @@ package com.test.mymall.service;
 
 import java.sql.Connection;
 
+import org.apache.ibatis.session.SqlSession;
+
 import com.test.mymall.commons.DBHelper;
 import com.test.mymall.dao.MemberDao;
 import com.test.mymall.dao.MemberItemDao;
@@ -11,19 +13,20 @@ public class MemberService {
 	private MemberDao memberDao;
 	private MemberItemDao memberItemDao;
 	
-	
+/*	
 	// 회원정보 수정을 위한 memberDao.selectMember() 메서드를 호출하는 메서드
 	public void modifyMemberService(Member member) {
 		System.out.println("service.modifyMemberService()");
 		memberDao = new MemberDao();
-		Connection connection = null;
+		SqlSession sqlSession = null;
 		try {
-			connection = DBHelper.getConnection();
+			sqlSession = DBHelper.getSqlSession();
+			sqlSession.commit();
 			this.memberDao.modifyMember(connection, member);
 		}catch (Exception e) {
 			e.printStackTrace();
 		}finally {
-			DBHelper.close(null, null, connection);
+			sqlSession.close();
 		}
 		
 	}
@@ -49,7 +52,7 @@ public class MemberService {
 		memberDao = new MemberDao();
 		Connection connection = null;
 		try {
-			connection = DBHelper.getConnection();
+			connection = DBHelper.getSqlSession();
 			member = memberDao.login(connection,member);
 		}catch (Exception e) {
 			e.printStackTrace();
@@ -58,23 +61,25 @@ public class MemberService {
 		}
 		return member;
 	}
-	
+	*/
 	// 회원가입을 위한 memberDao의 insertMember() 를 호출하는 메서드
 	public void insertMemberService(Member member) {
 		System.out.println("service.insertMember()");
+		SqlSession sqlSession = null;
 		memberDao = new MemberDao();
-		Connection connection = null;
 		try {
-			connection = DBHelper.getConnection();
-			memberDao.insertMember(connection,member);
+			sqlSession =  DBHelper.getSqlSession();
+			memberDao.insertMember(sqlSession,member);
+			sqlSession.commit();
 		}catch (Exception e) {
+			sqlSession.rollback();
 			e.printStackTrace();
 		}finally {
-			DBHelper.close(null, null, connection);
+			sqlSession.close();
 		}
 	}
 	
-	
+	/*
 	
 	// RemoveMemberController 에서 MemberServic.removeMember() 호출 
 	public void removeMember(int no ) {
@@ -104,6 +109,6 @@ public class MemberService {
 			DBHelper.close(null, null, connection);
 		}
 		
-	}
+	}*/
 
 }

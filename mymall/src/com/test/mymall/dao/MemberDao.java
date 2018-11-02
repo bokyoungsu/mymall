@@ -4,6 +4,8 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 
+import org.apache.ibatis.session.SqlSession;
+
 import com.test.mymall.commons.DBHelper;
 import com.test.mymall.vo.Member;
 
@@ -31,23 +33,9 @@ public class MemberDao {
 		}
 	}
 	//회원가입을 위한 메서드 
-	public void insertMember(Connection connection,Member member) {
+	public void insertMember(SqlSession sqlSession,Member member) {
 		System.out.println(member.getId()+"memberDao.java.insertMember()");
-		PreparedStatement preparedStatement = null;
-		ResultSet resultSet = null;
-		try {
-			preparedStatement = connection.prepareStatement("INSERT INTO member(id,pw,level) VALUES(?,?,?)");
-			preparedStatement.setString(1, member.getId());
-			preparedStatement.setString(2, member.getPw());
-			preparedStatement.setInt(3, member.getLevel());
-			preparedStatement.executeUpdate();
-		}
-		catch(Exception e) {
-			e.printStackTrace();
-		}
-		finally {
-			DBHelper.close(resultSet,preparedStatement,connection);
-		}
+		sqlSession.insert("com.test.mymall.dao.Member.insertMember", member);
 	
 	}
 	//id와 pw값을 가지는 member객체를 이용해 로그인체크를 하는 메서드

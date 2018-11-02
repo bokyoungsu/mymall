@@ -11,15 +11,9 @@
 	<form action="">
 		<table>
 			<tr>
-				<td></td>
-				<td></td>
-				<td></td>
-				<td></td>
-				<td></td>
-				<td></td>
+				<td>member NO</td><td>memberItemNo</td><td>itemPrice</td><td>itemName</td><td>oderDate</td>
 			</tr>
 			<tr>
-				<td></td>
 				<td></td>
 				<td></td>
 				<td></td>

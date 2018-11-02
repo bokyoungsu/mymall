@@ -1,22 +1,33 @@
 package com.test.mymall.commons;
 
-import java.sql.ResultSet;
-import javax.naming.Context;
-import javax.naming.InitialContext;
-import javax.sql.DataSource;
+import java.io.IOException;
+import java.io.InputStream;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
-import java.sql.Statement;
+import java.sql.ResultSet;
+
+import org.apache.ibatis.io.Resources;
+import org.apache.ibatis.session.SqlSession;
+import org.apache.ibatis.session.SqlSessionFactory;
+import org.apache.ibatis.session.SqlSessionFactoryBuilder;
 
 public class DBHelper {
 	//데이터베이스 연결을 위한 공통사용 코드 메서드화
-	public static Connection getConnection() throws Exception {
-    	Connection connection = null;
-		Context initContext = new InitialContext();
-		DataSource dataSource = (DataSource)initContext.lookup("java:comp/env/jdbc/mall");
-		connection = dataSource.getConnection();
-		return connection;
+	public static SqlSession getSqlSession() throws Exception {
+		InputStream inputStream = null;
+		  try {
+		   String resource = "mybatis-config.xml";
+		   inputStream = Resources.getResourceAsStream(resource);
+		  } catch (IOException e) {
+		   e.printStackTrace();
+		  }
+		  
+		  SqlSessionFactory sqlSessionFactory= new SqlSessionFactoryBuilder().build(inputStream); 
+		  SqlSession sqlSession = sqlSessionFactory.openSession();
+		  return sqlSession;
 	}
+
+
 	//객체 종료를 위한 공통사용 코드 메서드화
 	public static void close(ResultSet resultSet, PreparedStatement preparedStatement, Connection connection) {
         if(resultSet != null) {

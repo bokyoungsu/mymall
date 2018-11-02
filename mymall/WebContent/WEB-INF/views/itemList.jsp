@@ -6,7 +6,6 @@
 <meta charset="UTF-8">
 <title>itemList.jsp</title>
 </head>
-
 <body>
 	<h1>상품목록</h1>
 	<table border="1">
