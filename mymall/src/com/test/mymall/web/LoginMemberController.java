@@ -32,7 +32,7 @@ public class LoginMemberController extends HttpServlet {
 	//로그인 액션
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		System.out.println("LoginMemberController.doPost()");
-		boolean isLogin = false;
+		memberService = new MemberService();
 		Member member = new Member();
 		String id = request.getParameter("id");
 		String pw = request.getParameter("pw");

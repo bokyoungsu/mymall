@@ -5,6 +5,7 @@ import javax.naming.Context;
 import javax.naming.InitialContext;
 import javax.sql.DataSource;
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.Statement;
 
 public class DBHelper {
@@ -17,12 +18,12 @@ public class DBHelper {
 		return connection;
 	}
 	//객체 종료를 위한 공통사용 코드 메서드화
-	public static void close(ResultSet resultSet, Statement statement, Connection connection) {
+	public static void close(ResultSet resultSet, PreparedStatement preparedStatement, Connection connection) {
         if(resultSet != null) {
             try {resultSet.close();} catch(Exception exception) {exception.printStackTrace();}
         }
-        if(statement != null) {
-            try {statement.close();} catch(Exception exception) {exception.printStackTrace();}
+        if(preparedStatement != null) {
+            try {preparedStatement.close();} catch(Exception exception) {exception.printStackTrace();}
         }
         if(connection != null) {
             try {connection.close();} catch(Exception exception) {exception.printStackTrace();}

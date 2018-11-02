@@ -19,6 +19,7 @@ public class ModifyMemberController extends HttpServlet {
 	//수정 폼
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		System.out.println("ModifyMemberController.doGet()");
+		memberService = new MemberService();
 		//로그인 확인
 		HttpSession session = request.getSession();
 		if(session.getAttribute("loginMember") != null) {
@@ -37,6 +38,7 @@ public class ModifyMemberController extends HttpServlet {
 	//수정 액션
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		System.out.println("ModifyMemberController.doPost()");
+		memberService = new MemberService();
 		//로그인 확인
 		HttpSession session = request.getSession();
 		if(session.getAttribute("loginMember") != null) {
@@ -44,7 +46,7 @@ public class ModifyMemberController extends HttpServlet {
 			member.setId(request.getParameter("id"));
 			member.setPw(request.getParameter("pw"));
 			member.setLevel(Integer.parseInt(request.getParameter("level")));
-			this.memberService.modifyMemberService(member);
+			memberService.modifyMemberService(member);
 		}	
 		response.sendRedirect(request.getContextPath() + "/IndexController");
 	}

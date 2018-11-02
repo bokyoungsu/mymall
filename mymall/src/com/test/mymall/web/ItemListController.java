@@ -2,6 +2,7 @@ package com.test.mymall.web;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -15,8 +16,7 @@ import com.test.mymall.vo.Item;
 
 @WebServlet("/ItemListController")
 public class ItemListController extends HttpServlet {
-	ItemDao itemDao;
-	ItemService itemService;
+	private ItemService itemService;
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {	
 		System.out.println("ItemListController.doGet()");
 		int currentPage = 1; //현재 페이지 번호
@@ -28,11 +28,11 @@ public class ItemListController extends HttpServlet {
 		int currentScreenPage; //현재 화면에 보이는 페이지의 개수
 		int startScreenPage; //현재 화면에 보이는 페이지의 시작 번호(첫번째화면 1,두번째화면 11..)
 		int lastPage; //마지막 페이지번호
-		this.itemDao = new ItemDao();
+		itemService = new ItemService();
 		if(request.getParameter("currentPage") != null) {
 			currentPage = Integer.parseInt(request.getParameter("currentPage"));
 		}
-		totalCount = this.itemService.getTotalItemCountService();
+		totalCount = itemService.getTotalItemCountService();
 		// Math.ceil() 메서드는 소수점 올림.  전체행 나누기 보여줄행으로 마지막페이지를 구함
 		lastPage = (int)Math.ceil((double) totalCount / rowPerPage);
 		// 현재 페이지 번호 나누기 보여줄행 으로 현재화면번호를 구함
@@ -51,8 +51,10 @@ public class ItemListController extends HttpServlet {
 		else {
 			currentScreenPage = pagePerScreen;
 		}
-		
-		ArrayList<Item> itemList = this.itemService.selectItemListService(currentPage, rowPerPage);
+		HashMap<String, Integer> map = new HashMap<String, Integer>();
+		map.put("currentPage", currentPage);
+		map.put("rowPerPage", rowPerPage);
+		ArrayList<Item> itemList = itemService.selectItemListService(map);
 		request.setAttribute("itmeList", itemList);
 		request.setAttribute("lastPage", lastPage);
 		request.setAttribute("currentPage", currentPage);

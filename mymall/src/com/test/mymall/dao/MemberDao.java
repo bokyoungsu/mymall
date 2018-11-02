@@ -32,6 +32,7 @@ public class MemberDao {
 	}
 	//회원가입을 위한 메서드 
 	public void insertMember(Connection connection,Member member) {
+		System.out.println(member.getId()+"memberDao.java.insertMember()");
 		PreparedStatement preparedStatement = null;
 		ResultSet resultSet = null;
 		try {
