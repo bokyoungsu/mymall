@@ -52,7 +52,7 @@ public class ItemListController extends HttpServlet {
 			currentScreenPage = pagePerScreen;
 		}
 		HashMap<String, Integer> map = new HashMap<String, Integer>();
-		map.put("currentPage", currentPage);
+		map.put("currentPage", (currentPage-1) * rowPerPage);
 		map.put("rowPerPage", rowPerPage);
 		ArrayList<Item> itemList = itemService.selectItemListService(map);
 		request.setAttribute("itmeList", itemList);

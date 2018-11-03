@@ -5,6 +5,9 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
+
+import org.apache.ibatis.session.SqlSession;
 
 import com.test.mymall.commons.DBHelper;
 import com.test.mymall.vo.Item;
@@ -19,55 +22,17 @@ public class ItemDao {
 	 * @param rowPerPage 한 페이지에 보여지는 아이템의 개수
 	 */
 	
-	public ArrayList<Item> selectItemList(Connection connection,HashMap<String, Integer> map) {
-		int currentPage = map.get("currentPage");
-		int rowPerPage = map.get("rowPerPage");
-		ArrayList<Item> itemList = new ArrayList<Item>();
-		PreparedStatement preparedStatement = null;
-		ResultSet resultSet = null;
-		try {
-			preparedStatement = connection.prepareStatement("SELECT no, name, price FROM item LIMIT ? , ?");
-			preparedStatement.setInt(1, (currentPage - 1) * rowPerPage);
-			preparedStatement.setInt(2, rowPerPage);
-			resultSet = preparedStatement.executeQuery();
-			while(resultSet.next()) {
-				Item item = new Item();
-				item.setNo(resultSet.getInt(1));
-				item.setName(resultSet.getString(2));
-				item.setPrice(resultSet.getInt(3));
-				itemList.add(item);
-			}
-		}
-		catch(Exception e) {
-			e.printStackTrace();
-		}
-		finally {
-			DBHelper.close(resultSet, preparedStatement, connection);
-		}
-		return itemList;
+	public List<Item> selectItemList(SqlSession sqlSession,HashMap<String, Integer> map) {
+		System.out.println("ItemDao.java.selectItemList()");
+		return sqlSession.selectList("com.test.mymall.dao.Item.selectItemList", map);
 	}
 	/**
 	 * 데이터베이스에서 물품의 총 개수를 얻어온다
 	 * 
 	 * @return 물품의 총 갯수
 	 */
-	public int getTotalItemCount(Connection connection) {
-		int totalCount = 0;
-		PreparedStatement preparedStatement = null;
-		ResultSet resultSet = null;
-		try {
-			preparedStatement = connection.prepareStatement("SELECT count(*) FROM item");
-			resultSet = preparedStatement.executeQuery();
-			if(resultSet.next()) {
-				totalCount = resultSet.getInt(1);
-			}
-		}
-		catch(Exception e) {
-			e.printStackTrace();
-		}
-		finally {
-			DBHelper.close(resultSet, preparedStatement, connection);
-		}
-		return totalCount;
+	public int getTotalItemCount(SqlSession sqlSession) {
+		System.out.println("ItemDao.java.getTotalItemCount()");
+		return sqlSession.selectOne("com.test.mymall.dao.Item.getTotalItemCount");
 	}
 }

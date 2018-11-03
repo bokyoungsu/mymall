@@ -21,47 +21,22 @@ public class MemberDao {
 	
 	
 	// 회원탈퇴(회원삭제)를위한 메서드 
-	public void deleteMember(Connection connection,int no) {
-		PreparedStatement preparedStatement = null;
-		ResultSet resultSet = null;
-		try {
-			preparedStatement = connection.prepareStatement("DELETE FROM member WHERE no=?");
-			preparedStatement.setInt(1, no);
-			preparedStatement.executeUpdate();
-		}catch (Exception e) {
-			e.printStackTrace();
-		}
+	public void deleteMember(SqlSession sqlSession,int no) {
+		System.out.println("MemberDao.java.deleteMember()");
+		sqlSession.delete("com.test.mymall.dao.Member.deleteMember", no);
 	}
 	//회원가입을 위한 메서드 
 	public void insertMember(SqlSession sqlSession,Member member) {
-		System.out.println(member.getId()+"memberDao.java.insertMember()");
+		System.out.println("MemberDao.java.insertMember()");
 		sqlSession.insert("com.test.mymall.dao.Member.insertMember", member);
-	
 	}
 	//id와 pw값을 가지는 member객체를 이용해 로그인체크를 하는 메서드
 	//데이터베이스에서 id와pw일치시  member 객체에 id값과 level값을 대입후 리턴
-	public Member login(Connection connection,Member member) {
-		PreparedStatement preparedStatement = null;
-		ResultSet resultSet = null;
-		try {
-			preparedStatement = connection.prepareStatement("SELECT no,id,level FROM member WHERE id = ? AND pw = ?");
-			preparedStatement.setString(1, member.getId());
-			preparedStatement.setString(2, member.getPw());
-			resultSet = preparedStatement.executeQuery();
-			if(resultSet.next()) {
-				member.setNo(resultSet.getInt("no"));
-				member.setId(resultSet.getString("id")); 
-				member.setLevel(resultSet.getInt("level"));
-			}else {
-				member.setLevel(-1);
-			}
-		}catch(Exception e) {
-			e.printStackTrace();
-		}
-		finally {
-			DBHelper.close(resultSet,preparedStatement,connection);
-		}		
-		return member;
+	public Member login(SqlSession sqlSession,Member member) {
+		System.out.println("MemberDao.java.login()");
+		return sqlSession.selectOne("com.test.mymall.dao.Member.login", member);	
+		
+		
 	}
 	/**
 	 * 데이터베이스에서 로그인된 회원의 id에 해당하는 회원정보를 가져온다
@@ -70,28 +45,9 @@ public class MemberDao {
 	 * @return	회원의정보(no,id,pw,level)
 	 */
 	// 회원 정보한명을 조회하는 메서드 
-	public Member selectMember(Connection connection,String id) {
-		System.out.println("MemberDao.selectMember()");
-		PreparedStatement preparedStatement = null;
-		ResultSet resultSet = null;
-		Member member = new Member();
-		try {
-			preparedStatement = connection.prepareStatement("SELECT no, id, pw, level from member WHERE id = ?");
-			preparedStatement.setString(1, id);
-			resultSet = preparedStatement.executeQuery();
-			resultSet.next();
-			member.setNo(resultSet.getInt(1));
-			member.setId(resultSet.getString(2));
-			member.setPw(resultSet.getString(3));
-			member.setLevel(resultSet.getInt(4)); 
-		}
-		catch(Exception e) {
-			e.printStackTrace();
-		}
-		finally {
-			DBHelper.close(resultSet, preparedStatement, connection);
-		}	
-		return member;
+	public Member selectMember(SqlSession sqlSession,String id) {
+		System.out.println("MemberDao.java.selectMember()");
+		return (Member) sqlSession.selectOne("com.test.mymall.vo.Member.deleteMember", id);
 	}
     /**
      * 매개변수로전달된 로그인한 회원의 수정된 데이터(member)를 데이터베이스에서 갱신
@@ -100,20 +56,8 @@ public class MemberDao {
      * @return  없음
      */
 	// 회원정보 수정을 위한 메서드 
-	public void modifyMember(Connection connection,Member member) {
-		PreparedStatement preparedStatement = null;
-		try {
-			preparedStatement = connection.prepareStatement("UPDATE member SET pw = ?, level = ? WHERE id = ?");
-			preparedStatement.setString(1, member.getPw());
-			preparedStatement.setInt(2, member.getLevel());
-			preparedStatement.setString(3, member.getId());
-			preparedStatement.executeUpdate();
-		}
-		catch(Exception e) {
-			e.printStackTrace();
-		}
-		finally {
-			DBHelper.close(null, preparedStatement, connection);
-		}	
+	public void modifyMember(SqlSession sqlSession,Member member) {
+		System.out.println("MemberDao.java.modifyMember()");
+		sqlSession.update("com.test.mymall.vo.Member.modifyMember", member);
 	}
 }
