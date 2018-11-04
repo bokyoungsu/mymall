@@ -20,8 +20,8 @@
 					<td align="center">${list.name}</td>
 					<td align="center">${list.price}</td>
 					<td align="center">${list.order_date}</td>
-				</c:forEach>
-			</tr>			
+			</tr>
+				</c:forEach>			
 		</table>
 	</form>
 </body>
