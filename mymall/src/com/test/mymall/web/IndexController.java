@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 public class IndexController extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		System.out.println("IndexController.doGet()");
+		//System.out.println(request.getAttribute("memberLevel")+"<-indexcontroller");
 		request.getRequestDispatcher("/WEB-INF/views/index.jsp").forward(request, response);
 	}	
 

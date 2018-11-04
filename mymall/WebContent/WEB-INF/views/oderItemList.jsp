@@ -9,17 +9,19 @@
 <body>
 	<h2>주문목록</h2>
 	<form action="">
-		<table>
+		<table border="1">
 			<tr>
-				<td>member NO</td><td>memberItemNo</td><td>itemPrice</td><td>itemName</td><td>oderDate</td>
+				<td>memberItem NO</td><td>ItemNo</td><td>itemName</td><td>itemPrice</td><td>oderDate</td>
 			</tr>
 			<tr>
-				<td></td>
-				<td></td>
-				<td></td>
-				<td></td>
-				<td></td>
-			</tr>
+				<c:forEach var ="list" items="${list}">		
+					<td align="center">${list.no}</td>
+					<td align="center">${list.item_no}</td>
+					<td align="center">${list.name}</td>
+					<td align="center">${list.price}</td>
+					<td align="center">${list.order_date}</td>
+				</c:forEach>
+			</tr>			
 		</table>
 	</form>
 </body>

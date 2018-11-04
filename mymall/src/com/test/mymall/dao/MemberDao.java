@@ -47,7 +47,7 @@ public class MemberDao {
 	// 회원 정보한명을 조회하는 메서드 
 	public Member selectMember(SqlSession sqlSession,String id) {
 		System.out.println("MemberDao.java.selectMember()");
-		return (Member) sqlSession.selectOne("com.test.mymall.vo.Member.deleteMember", id);
+		return sqlSession.selectOne("com.test.mymall.dao.Member.selectMember", id);
 	}
     /**
      * 매개변수로전달된 로그인한 회원의 수정된 데이터(member)를 데이터베이스에서 갱신
@@ -58,6 +58,6 @@ public class MemberDao {
 	// 회원정보 수정을 위한 메서드 
 	public void modifyMember(SqlSession sqlSession,Member member) {
 		System.out.println("MemberDao.java.modifyMember()");
-		sqlSession.update("com.test.mymall.vo.Member.modifyMember", member);
+		sqlSession.update("com.test.mymall.dao.Member.modifyMember", member);
 	}
 }

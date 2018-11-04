@@ -28,5 +28,4 @@ public class MemberItemDao {
 		System.out.println("MemberItemDao.java.getMemberItemList()");
 		return sqlSession.selectList("com.test.mymall.dao.MemberItem.getMemberItemList", memberNO);
 	}
-	
 }

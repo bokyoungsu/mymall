@@ -14,6 +14,7 @@ import com.test.mymall.dao.MemberItemDao;
 
 public class MemberItemService {
 	MemberItemDao memberItemDao;
+	
 	public void insertMemberItemService(HashMap<String, Integer> map) {
 		System.out.println("MemberItemService.java.insertMemberItemService()");
 		memberItemDao = new MemberItemDao();
@@ -31,8 +32,8 @@ public class MemberItemService {
 	
 	}
 	public List<HashMap<String, Object>> getMemberItemListService(int memberNO){
+		System.out.println("MemberItemService.java.getMemberItemListService()");
 		List<HashMap<String,Object>> list = null;
-		System.out.println("getMemberItemListService()");
 		memberItemDao = new MemberItemDao();
 		SqlSession sqlSession = null;
 		try {

@@ -25,6 +25,7 @@ public class ModifyMemberController extends HttpServlet {
 		if(session.getAttribute("loginMember") != null) {
 			String id = request.getParameter("id");
 			//memberDao.selectMember(String id);
+			System.out.println(id);
 			Member member = memberService.selectMemberService(id);
 			request.setAttribute("member", member);
 			//forward
@@ -48,6 +49,6 @@ public class ModifyMemberController extends HttpServlet {
 			member.setLevel(Integer.parseInt(request.getParameter("level")));
 			memberService.modifyMemberService(member);
 		}	
-		response.sendRedirect(request.getContextPath() + "/IndexController");
+		response.sendRedirect(request.getContextPath() + "/LogoutMemberController");
 	}
 }

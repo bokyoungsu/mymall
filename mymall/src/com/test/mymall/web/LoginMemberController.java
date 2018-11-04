@@ -41,11 +41,12 @@ public class LoginMemberController extends HttpServlet {
 		// 데이터베이스에 id pw 값이 있는지 확인하는 메서드 있으면 member 객체에 id값과 level값을 세팅후 반환 하고 없으면 level값에 -1을 반환
 		member = memberService.LoginService(member);
 		// 로그인이성공하면 세션객체에 loginMember 이름으로 id값 등록 
-		if(member.getLevel() != -1) {
+		//System.out.println(member.getLevel()+"<- login,dopost()");
+		if(member.getId() != null) {
 			HttpSession session = request.getSession();
 			session.setAttribute("memberNo", member.getNo());
 			session.setAttribute("loginMember", member.getId());
-			session.setAttribute("memberLogin", member.getLevel());			
+			session.setAttribute("memberLevel", member.getLevel());			
 			response.sendRedirect(request.getContextPath()+"/IndexController");
 		}
 		else {

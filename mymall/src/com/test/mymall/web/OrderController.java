@@ -30,7 +30,7 @@ public class OrderController extends HttpServlet {
 		map.put("memberNo", memberNo);
 		memberItemService.insertMemberItemService(map);
 		// 주문내역으로 이동 
-		response.sendRedirect("");
+		response.sendRedirect(request.getContextPath()+"/OrderListController");
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
