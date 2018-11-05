@@ -14,5 +14,4 @@ public class IndexController extends HttpServlet {
 		//System.out.println(request.getAttribute("memberLevel")+"<-indexcontroller");
 		request.getRequestDispatcher("/WEB-INF/views/index.jsp").forward(request, response);
 	}	
-
 }

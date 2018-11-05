@@ -13,6 +13,7 @@ import javax.servlet.http.HttpServletResponse;
 import com.test.mymall.dao.ItemDao;
 import com.test.mymall.service.ItemService;
 import com.test.mymall.vo.Item;
+import com.test.mymall.vo.PageMarker;
 
 @WebServlet("/ItemListController")
 public class ItemListController extends HttpServlet {
