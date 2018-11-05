@@ -4,27 +4,28 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.test.mymall.dao.MemberItem">
 	<insert id="insertMemberItem" parameterType="HashMap">
-		INSERT 
-		INTO member_item(member_no, item_no, order_date) 
-		VALUES(#{memberNo}
-			,#{itemNo}
-			,now())
+		INSERT INTO member_item(member_no, item_no, order_date) VALUES(#{memberNo},#{itemNo},now())
 	</insert>
 	<delete id="deleteMemberItem" parameterType="int">
 		DELETE 
 		FROM member_item 
 		WHERE member_no=#{no}
 	</delete>
-	<select id="getMemberItemList" parameterType="int" resultType="HashMap">
+	<select id="getMemberItemList" parameterType="HashMap" resultType="HashMap">
 		SELECT mi.no
 			,mi.order_date
 			,mi.item_no
 			,i.name
-			,i.price 
+			,i.price
 		FROM member_item mi 
 		JOIN item i 
 		ON mi.item_no = i.no 
-		WHERE mi.member_no= #{memberNO}
-		
+		WHERE mi.member_no= #{memberNo}
+		LIMIT #{pageNum},#{contentNum}
+	</select>
+	<select id="getOderListCount" parameterType="int" resultType="int">
+		SELECT count(*)
+		FROM member_Item
+		WHERE member_no=#{memberNo}
 	</select>
 </mapper>

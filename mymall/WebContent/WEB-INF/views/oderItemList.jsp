@@ -21,7 +21,24 @@
 					<td align="center">${list.price}</td>
 					<td align="center">${list.order_date}</td>
 			</tr>
-				</c:forEach>			
+				</c:forEach>
+			<tr>
+				<td colspan = "5" align="center">
+				<c:if test="${page.prevPage}">
+					<a href="${pageContext.request.contextPath}/OrderListController?pageNum=(${page.getStartPage()-1})"><</a>
+				</c:if>
+				<c:forEach var="i" begin="${page.getStartPage()}" end="${page.getEndPage()}">
+					<c:if test="${page.getPageNum() == i}">
+						${i}
+					</c:if>
+					<c:if test="${page.getPageNum() != i}">
+						<a href="${pageContext.request.contextPath}/OrderListController?pageNum=${i}">${i}</a>
+					</c:if>
+				</c:forEach>
+				<c:if test="${page.nextPage}">
+					<a href="${pageContext.request.contextPath}/OrderListController?pageNum=(${page.getEndPage()+1})">></a>
+				</c:if>
+			</tr>				
 		</table>
 	</form>
 </body>

@@ -61,7 +61,7 @@ public class PageMarker {
 	}
 	public int getEndPage() {
 		return endPage;
-	}
+	}	 
 	// 마지막 페이지 구하는 메서드 ex) 123456789'10'
 	public void setEndPage(int getLastBlock,int getCurrentBlock) {
 		if(getLastBlock == getCurrentBlock) {
@@ -88,7 +88,7 @@ public class PageMarker {
 	// 현재 페이지 블록을 구하는 메서드
 	public void setCurrentBlock(int pageNum) {
 		 this.currentBlock = pageNum/10;
-		if(pageNum%5>0) {
+		if(pageNum%10>0) {
 			this.currentBlock++;
 		}
 	}

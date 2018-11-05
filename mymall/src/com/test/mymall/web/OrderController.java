@@ -21,6 +21,7 @@ import com.test.mymall.vo.MemberItem;
 public class OrderController extends HttpServlet {
 	private MemberItemService memberItemService;
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		System.out.println("OrderController.java.doGet()");
 		MemberItem memberItem = new MemberItem();
 		memberItemService = new MemberItemService();
 		int itemNo = Integer.parseInt(request.getParameter("itemNo"));

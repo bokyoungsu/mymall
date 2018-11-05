@@ -1,5 +1,7 @@
 package com.test.mymall.service;
 
+import java.util.HashMap;
+
 import org.apache.ibatis.session.SqlSession;
 
 import com.test.mymall.commons.DBHelper;
@@ -84,14 +86,15 @@ public class MemberService {
 	
 	
 	// RemoveMemberController 에서 MemberServic.removeMember() 호출 
-	public void removeMember(int no) {
+	public void removeMember(HashMap<String, Integer> numMap) {
 		System.out.println("MemberService.java.removeMember()");
+		int no = numMap.get("memberNo");
 		SqlSession sqlSession = null;
 		memberItemDao = new MemberItemDao();
 		memberDao = new MemberDao();
 		try{
 			sqlSession = DBHelper.getSqlSession();
-			memberItemDao.getMemberItemList(sqlSession, no); 			
+			memberItemDao.getMemberItemList(sqlSession, numMap); 			
 			// 참조하고있는 키부터 삭제함
 			memberItemDao = new MemberItemDao();
 			memberItemDao.deleteMemberItem(sqlSession,no);

@@ -24,8 +24,12 @@ public class MemberItemDao {
 		sqlSession.delete("com.test.mymall.dao.MemberItem.deleteMemberItem", no);
 	}
 	// 주문목록 조회를 위한 메서드 
-	public List<HashMap<String, Object>> getMemberItemList(SqlSession sqlSession,int memberNO){
+	public List<HashMap<String, Object>> getMemberItemList(SqlSession sqlSession,HashMap<String, Integer> numMap){
 		System.out.println("MemberItemDao.java.getMemberItemList()");
-		return sqlSession.selectList("com.test.mymall.dao.MemberItem.getMemberItemList", memberNO);
+		return sqlSession.selectList("com.test.mymall.dao.MemberItem.getMemberItemList", numMap);
+	}
+	public int getOderListCount(SqlSession sqlSession,int memberNo) {
+		System.out.println("MemberItemDao.java.getOderListCount()");
+		return sqlSession.selectOne("com.test.mymall.dao.MemberItem.getOderListCount", memberNo);
 	}
 }

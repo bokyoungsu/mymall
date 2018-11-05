@@ -1,6 +1,7 @@
 package com.test.mymall.web;
 
 import java.io.IOException;
+import java.util.HashMap;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -35,7 +36,9 @@ public class DeleteMemberController extends HttpServlet {
 		member.setPw(pw);
 		member = memberService.LoginService(member);
 		if(id.equals(member.getId())) {
-			memberService.removeMember(member.getNo());
+			HashMap<String, Integer> numMap = new HashMap<String, Integer>();
+			numMap.put("memberNo", member.getNo());
+			memberService.removeMember(numMap);
 			session.invalidate();
 			response.sendRedirect(request.getContextPath()+"/IndexController");
 		}else {
